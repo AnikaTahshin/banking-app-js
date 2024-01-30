@@ -53,9 +53,46 @@ function createBankAccount() {
   }
 }
 
+
+// update account 
+function updateAccount() {
+  const number = prompt("Enter account number to update:");
+  const account = bankArr.find((acc) => acc.number === number);
+  if (account) {
+    const newName = prompt("Enter new name:");
+    account.name = newName;
+    console.log("Account updated successfully!");
+  } else {
+    console.log("Account not found!");
+  }
+}
+
+
+// delete an account 
+
+
+
+function deleteAccount() {
+  const number = prompt("Enter account number to delete:");
+  const index = bankArr.findIndex((acc) => acc.number === number);
+  if (index !== -1) {
+    bankArr.splice(index, 1);
+    console.log("Account deleted successfully!");
+  } else {
+    console.log("Account not found!");
+  }
+}
+
 // show all accounts 
 function displayAccount() {
-  bankArr.forEach((element) => element.display());
+  if (bankArr.length === 0) {
+   return "No Account found"
+    
+  }
+  else{
+    bankArr.forEach((element) => element.display());
+  }
+    
 }
 
 function main() {
@@ -71,11 +108,19 @@ function main() {
     console.log("8. Exit");
 
     const choice = parseInt(prompt("Enter your choice (1-8):"));
-    console.log('check input', choice)
+    
     if (choice === 1) {
       createBankAccount();
     } else if (choice === 2) {
       displayAccount();
+    }
+    else if (choice === 3) {
+      updateAccount();
+    }
+
+   
+    else if (choice === 4) {
+      deleteAccount()
     }
     
   }
