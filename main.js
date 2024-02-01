@@ -67,9 +67,8 @@ const bankArr = []; // to store all the created accounts
 function createBankAccount() {
   const creationDate = prompt("Enter Date: ");
   const name = prompt("Enter Account Holder's Name: ");
-  const number = prompt("Enter Account Number: ");
-
-
+  // const number = prompt("Enter Account Number: ");
+  const number = Math.floor(Math.random() * 90000000) + 10000000; // to generate random account number with 8 digit number
   const type = parseInt(prompt("Enter Account Type (1 for salary, 2 for current, 3 for saving): "));
   const balance = parseFloat(prompt("Enter Initial Balance: "));
   const acc = new Account(name, number, type, creationDate, balance);
@@ -84,7 +83,7 @@ function createBankAccount() {
   }
 
   if (balance >= minBalance) { // balance shoudle be equal or greater than minBalance to create an account
-    bankArr.push(acc);
+    bankArr.push(acc); // stroing the accounts in the array
     console.log("Account Created Successfully!");
   } else {
     console.log(`Balance should be at least ${minBalance} for ${acc.type} account`);
@@ -96,7 +95,7 @@ function createBankAccount() {
 // update account 
 function updateAccount() {
   const number = prompt("Enter account number to update:");
-  const account = bankArr.find((acc) => acc.number === number);
+  const account = bankArr.find((acc) => acc.number === number); // getting the specific account to update
   if (account) {
     const newName = prompt("Enter new name:");
     account.name = newName;
@@ -113,7 +112,7 @@ function updateAccount() {
 
 function deleteAccount() {
   const number = prompt("Enter account number to delete:");
-  const index = bankArr.findIndex((acc) => acc.number === number);
+  const index = bankArr.findIndex((acc) => acc.number === number); 
   if (index !== -1) {
     bankArr.splice(index, 1);
     console.log("Account deleted successfully!");
