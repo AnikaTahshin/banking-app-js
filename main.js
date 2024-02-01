@@ -33,6 +33,30 @@ class Account {
     this.balance += amount
     console.log(`Successfully Desposite BDT. ${amount} . New balance: ${this.balance}`);
   }
+
+
+  // withdraw amount
+  withdraw(amount) {
+    let minBalance;
+    if(this.type === 'salary') {
+      minBalance = 200;
+    }
+    else if (this.type === 'current') {
+      minBalance = 500;
+    }
+    else if (this.type === 'savings') {
+      minBalance = 1000;
+    }
+   
+    if (minBalance !== null && (this.balance - amount) < minBalance) {
+      console.log(`Insufficient funds! Please keep minimum BDT. ${minBalance} for ${this.type} acount`);
+    } else {
+      this.balance -= amount;
+    console.log(`Withdrawal of ${amount} successful. New balance: ${this.balance}`);
+    }
+    
+  
+  }
 }
 
 const prompt = require("prompt-sync")({ sigint: true }); // to take user input
@@ -44,11 +68,7 @@ function createBankAccount() {
   const creationDate = prompt("Enter Date: ");
   const name = prompt("Enter Account Holder's Name: ");
   const number = prompt("Enter Account Number: ");
-  
-  // if (number.length > 8 || number.length === 0) {
-  //   console.log("Enter a valid number not more than 8 digits");
-  //   return;
-  // }
+
 
   const type = parseInt(prompt("Enter Account Type (1 for salary, 2 for current, 3 for saving): "));
   const balance = parseFloat(prompt("Enter Initial Balance: "));
@@ -140,6 +160,18 @@ function depositeAmount() {
     console.log("Account not found!");
   }
 }
+
+// withdraw mount
+function withdrawAmount() {
+  const number = prompt("Enter account number to withdraw from:");
+  const account = bankArr.find((acc) => acc.number === number);
+  if (account) {
+    const amount = parseFloat(prompt("Enter amount to withdraw:"));
+    account.withdraw(amount);
+  } else {
+    console.log("Account not found!");
+  }
+}
 function main() {
   while (true) {
     console.log("\nBanking Application Menu:");
@@ -170,6 +202,10 @@ function main() {
     else if (choice === 5) {
       depositeAmount()
     }
+    else if (choice === 6) {
+      withdrawAmount()
+    }
+    
     else if (choice === 7) {
       searchAccount()
     }
